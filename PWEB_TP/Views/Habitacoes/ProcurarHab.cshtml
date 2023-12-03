@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "ProcurarHab";
+}
+
+<h1>Procurar Habitações</h1>
+
+<h4>Habitações</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Resultados">
+
+            <div class="form-group">
+                <label for="Pesquisa" class="control-label"></label>
+                <input name="Pesquisa" class="form-control" />
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Procurar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Ver Habitações</a>
+</div>
+
