@@ -12,6 +12,7 @@ namespace PWEB_TP.Data
         }
 
         public DbSet<Habitacoes> Habitacoes { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
 
     }
 }

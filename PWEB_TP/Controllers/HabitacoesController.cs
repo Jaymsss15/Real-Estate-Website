@@ -27,6 +27,18 @@ namespace PWEB_TP.Controllers
                           Problem("Entity set 'ApplicationDbContext.Habitacoes'  is null.");
         }
 
+        // GET: Habitacoes/Procurar
+        public async Task<IActionResult> ProcurarHab()
+        {
+            return View();
+        }
+
+        // GET: Habitacoes/Resultados
+        public async Task<IActionResult> Resultados(String Pesquisa)
+        {
+            return View("Index", await _context.Habitacoes.Where( j => j.Localizacao.Contains(Pesquisa)).ToListAsync());
+        }
+
         // GET: Habitacoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
