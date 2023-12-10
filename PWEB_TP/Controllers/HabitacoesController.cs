@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using PWEB_TP.Data;
 using TP_PWEB.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Data.SqlClient;
 
 namespace PWEB_TP.Controllers
 {
@@ -39,12 +40,32 @@ namespace PWEB_TP.Controllers
             return View();
         }
         // GET: Habitacoes/Resultados
-        public async Task<IActionResult> Resultados(String localizacao,string tipo, string tipo2, string locador)
+        public async Task<IActionResult> Resultados(String localizacao,string tipo, string tipo2, string locador, string sortOrder)
         {
             //tipo É o tipo de Habitacao definida no ProcurarHab
             //tipo2 É o tipo de Habitacao definida no Filtrar
 
             var habitacoes = _context.Habitacoes.AsQueryable();
+
+            ViewData["PrecoSortParm"] = String.IsNullOrEmpty(sortOrder) ? "preco_desc" : "";
+            ViewData["AvaliacaoSortParm"] = String.IsNullOrEmpty(sortOrder) ? "avaliacao_desc" : "";
+            habitacoes = from h in _context.Habitacoes
+            select h;
+
+            switch (sortOrder)
+            {
+                case "preco_desc":
+                    habitacoes = habitacoes.OrderByDescending(h => h.Preco);
+                    break;
+                case "avaliacao_desc":
+                    habitacoes = habitacoes.OrderByDescending(h => h.Avaliacao);
+                    break;
+                default:
+                    habitacoes = habitacoes.OrderBy(h => h.Preco);
+                    habitacoes = habitacoes.OrderBy(h => h.Avaliacao);
+                    break;
+            }
+
             if (localizacao != null)
             {
                 habitacoes = habitacoes.Where(j => j.Localizacao.Contains(localizacao));

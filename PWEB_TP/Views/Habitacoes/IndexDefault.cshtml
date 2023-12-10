@@ -17,14 +17,14 @@
                 Disponível
             </th>
             <th>
-                Preço
+                <a asp-action="Resultados" asp-route-sortOrder="@ViewData["PrecoSortParm"]">@Html.DisplayNameFor(model => model.Preco)</a>
             </th>
 
             <th>
                 @Html.DisplayNameFor(model => model.Locador)
             </th>
             <th>
-                Avaliação
+                <a asp-action="Resultados" asp-route-sortOrder="@ViewData["AvaliacaoSortParm"]">@Html.DisplayNameFor(model => model.Avaliacao)</a>
             </th>
 
         </tr>
@@ -37,6 +37,7 @@
                 </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Preco)
+
             </td>
 
                 <td>
