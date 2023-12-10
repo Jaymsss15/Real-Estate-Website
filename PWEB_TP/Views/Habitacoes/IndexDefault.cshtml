@@ -1,0 +1,54 @@
+﻿@model IEnumerable<TP_PWEB.Models.Habitacoes>
+
+@{
+    ViewData["Title"] = "IndexDefault";
+}
+
+<h1>Habitações</h1>
+
+<p>
+    <a asp-action="Filtrar">Filtrar Resultados</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Disponível
+            </th>
+            <th>
+                Preço
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Locador)
+            </th>
+            <th>
+                Avaliação
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Disponivel)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preco)
+            </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Locador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Avaliacao)
+                </td>
+            <td>
+                <a asp-action="DetailsDefault" asp-route-id="@item.IdHabitacoes">Detalhes</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

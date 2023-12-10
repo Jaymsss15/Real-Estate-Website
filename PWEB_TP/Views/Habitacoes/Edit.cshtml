@@ -29,8 +29,31 @@
             </div>
             <div class="form-group">
                 <label asp-for="Disponivel" class="control-label"></label>
-                <input asp-for="Disponivel" class="form-control" />
+                <select asp-for="Disponivel" class="form-control">
+                    <option value="TRUE">Sim</option>
+                    <option value="FALSE">Não</option>
+                </select>
                 <span asp-validation-for="Disponivel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataInicioContrato" class="control-label">Data Inicio Contrato</label>
+                <input asp-for="DataInicioContrato" class="form-control" type="date" />
+                <span asp-validation-for="DataInicioContrato" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataFimContrato" class="control-label">Data Fim Contrato</label>
+                <input asp-for="DataFimContrato" class="form-control" type="date" />
+                <span asp-validation-for="DataFimContrato" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Locador" class="control-label"></label>
+                <input asp-for="Locador" class="form-control" />
+                <span asp-validation-for="Locador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Avaliacao" class="control-label"></label>
+                <input asp-for="Avaliacao" class="form-control"/>
+                <span asp-validation-for="Avaliacao" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Guardar" class="btn btn-primary" />

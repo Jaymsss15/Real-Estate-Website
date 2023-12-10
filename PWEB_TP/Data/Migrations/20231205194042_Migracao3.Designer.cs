@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PWEB_TP.Data;
 
@@ -11,9 +12,10 @@ using PWEB_TP.Data;
 namespace PWEB_TP.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231205194042_Migracao3")]
+    partial class Migracao3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -249,9 +251,6 @@ namespace PWEB_TP.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdHabitacoes"), 1L, 1);
 
-                    b.Property<int>("Avaliacao")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("DataFimContrato")
                         .HasColumnType("datetime2");
 
@@ -259,9 +258,7 @@ namespace PWEB_TP.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Disponivel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Locador")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Localizacao")
@@ -272,6 +269,7 @@ namespace PWEB_TP.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Tipo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IdHabitacoes");

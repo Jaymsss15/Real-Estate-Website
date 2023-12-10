@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Filtrar";
+}
+
+<h1>Filtrar Habitações</h1>
+
+<h4>Habitações</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Resultados">
+
+            <div class="form-group">
+                <label for="locador" class="control-label"></label>
+                <input name="locador" class="form-control" placeholder="Locador" />
+            </div>
+
+            <div class="form-group">
+                <label for="tipo2" class="control-label">Tipo de Habitação:</label>
+                <select name="tipo2" class="form-control">
+                    <option value="">Selecionar...</option>
+                    <option value="Apartamento">Apartamento</option>
+                    <option value="Vivenda">Vivenda</option>
+                    <option value="Moradia Isolada">Moradia Isolada</option>
+                    <option value="Moradia Geminada">Moradia Geminada</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Filtrar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

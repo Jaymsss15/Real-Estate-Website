@@ -13,18 +13,30 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Localizacao)
+                Localização
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Tipo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Preco)
+                Preço
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Disponivel)
+                Disponível
             </th>
-            <th></th>
+            <th>
+                Data Início Contrato
+            </th>
+            <th>
+                Data Fim Contrato
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Locador)
+            </th>
+            <th>
+                Avaliação
+            </th>
+
         </tr>
     </thead>
     <tbody>
@@ -40,8 +52,20 @@
                 @Html.DisplayFor(modelItem => item.Preco)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Disponivel)
+                    @Html.DisplayFor(modelItem => item.Disponivel)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataInicioContrato)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataFimContrato)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Locador)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Avaliacao)
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdHabitacoes">Editar</a> |
                 <a asp-action="Details" asp-route-id="@item.IdHabitacoes">Detalhes</a> |

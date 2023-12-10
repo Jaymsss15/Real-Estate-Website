@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PWEB_TP.Data;
 using TP_PWEB.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PWEB_TP.Controllers
 {
@@ -20,6 +21,7 @@ namespace PWEB_TP.Controllers
         }
 
         // GET: Habitacoes
+        [Authorize]
         public async Task<IActionResult> Index()
         {
               return _context.Habitacoes != null ? 
@@ -32,12 +34,44 @@ namespace PWEB_TP.Controllers
         {
             return View();
         }
-
-        // GET: Habitacoes/Resultados
-        public async Task<IActionResult> Resultados(String Pesquisa)
+        public async Task<IActionResult> Filtrar()
         {
-            return View("Index", await _context.Habitacoes.Where( j => j.Localizacao.Contains(Pesquisa)).ToListAsync());
+            return View();
         }
+        // GET: Habitacoes/Resultados
+        public async Task<IActionResult> Resultados(String localizacao,string tipo, string tipo2, string locador)
+        {
+            //tipo É o tipo de Habitacao definida no ProcurarHab
+            //tipo2 É o tipo de Habitacao definida no Filtrar
+
+            var habitacoes = _context.Habitacoes.AsQueryable();
+            if (localizacao != null)
+            {
+                habitacoes = habitacoes.Where(j => j.Localizacao.Contains(localizacao));
+            }
+            if (locador != null)
+            {
+                habitacoes = habitacoes.Where(j => j.Locador.Contains(locador));
+            }
+
+            if (tipo != null) { 
+            habitacoes = habitacoes.Where(j => j.Tipo.Contains(tipo));
+                }
+
+            if (tipo2 != null)
+            {
+                habitacoes = habitacoes.Where(j => j.Tipo.Contains(tipo2));
+            }
+
+            string disponivel = "TRUE";
+            habitacoes = habitacoes.Where(j => j.Disponivel.Contains(disponivel));
+
+            var habitacoesResultado = await habitacoes.ToListAsync();
+
+            return View("IndexDefault", habitacoesResultado);
+        }
+
+
 
         // GET: Habitacoes/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -57,7 +91,26 @@ namespace PWEB_TP.Controllers
             return View(habitacoes);
         }
 
+        // GET: Habitacoes/Details/5
+        public async Task<IActionResult> DetailsDefault(int? id)
+        {
+            if (id == null || _context.Habitacoes == null)
+            {
+                return NotFound();
+            }
+
+            var habitacoes = await _context.Habitacoes
+                .FirstOrDefaultAsync(m => m.IdHabitacoes == id);
+            if (habitacoes == null)
+            {
+                return NotFound();
+            }
+
+            return View(habitacoes);
+        }
+
         // GET: Habitacoes/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -66,9 +119,10 @@ namespace PWEB_TP.Controllers
         // POST: Habitacoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdHabitacoes,Localizacao,Tipo,Preco,Disponivel")] Habitacoes habitacoes)
+        public async Task<IActionResult> Create([Bind("IdHabitacoes,Localizacao,Tipo,Preco,Disponivel,DataInicioContrato,DataFimContrato,Locador,Avaliacao")] Habitacoes habitacoes)
         {
             if (ModelState.IsValid)
             {
@@ -80,6 +134,7 @@ namespace PWEB_TP.Controllers
         }
 
         // GET: Habitacoes/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Habitacoes == null)
@@ -98,9 +153,10 @@ namespace PWEB_TP.Controllers
         // POST: Habitacoes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdHabitacoes,Localizacao,Tipo,Preco,Disponivel")] Habitacoes habitacoes)
+        public async Task<IActionResult> Edit(int id, [Bind("IdHabitacoes,Localizacao,Tipo,Preco,Disponivel,DataInicioContrato,DataFimContrato,Locador,Avaliacao")] Habitacoes habitacoes)
         {
             if (id != habitacoes.IdHabitacoes)
             {
@@ -131,6 +187,7 @@ namespace PWEB_TP.Controllers
         }
 
         // GET: Habitacoes/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Habitacoes == null)
@@ -149,6 +206,7 @@ namespace PWEB_TP.Controllers
         }
 
         // POST: Habitacoes/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

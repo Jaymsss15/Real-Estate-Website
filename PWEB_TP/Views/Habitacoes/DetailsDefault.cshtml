@@ -1,0 +1,42 @@
+﻿@model TP_PWEB.Models.Habitacoes
+
+@{
+    ViewData["Title"] = "DetailsDefault";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+
+
+        <dt class="col-sm-2">
+            Disponivel
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Disponivel)
+        </dd>
+        <dt class="col-sm-2">
+            Preço
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Preco)
+        </dd>
+        <dt class="col-sm-2">
+            Locador
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Locador)
+        </dd>
+        <dt class="col-sm-2">
+            Avaliação
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Avaliacao)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Resultados">Voltar</a>
+</div>
