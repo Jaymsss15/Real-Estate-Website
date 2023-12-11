@@ -47,22 +47,27 @@ namespace PWEB_TP.Controllers
 
             var habitacoes = _context.Habitacoes.AsQueryable();
 
-            ViewData["PrecoSortParm"] = String.IsNullOrEmpty(sortOrder) ? "preco_desc" : "";
-            ViewData["AvaliacaoSortParm"] = String.IsNullOrEmpty(sortOrder) ? "avaliacao_desc" : "";
+            ViewData["PrecoSortParm"] = sortOrder == "preco_desc" ? "preco_asc" : "preco_desc";
+            ViewData["AvaliacaoSortParm"] = sortOrder == "avaliacao_desc" ? "avaliacao_asc" : "avaliacao_desc";
             habitacoes = from h in _context.Habitacoes
-            select h;
+                         select h;
 
             switch (sortOrder)
             {
                 case "preco_desc":
                     habitacoes = habitacoes.OrderByDescending(h => h.Preco);
                     break;
+                case "preco_asc":
+                    habitacoes = habitacoes.OrderBy(h => h.Preco);
+                    break;
                 case "avaliacao_desc":
                     habitacoes = habitacoes.OrderByDescending(h => h.Avaliacao);
                     break;
+                case "avaliacao_asc":
+                    habitacoes = habitacoes.OrderBy(h => h.Avaliacao);
+                    break;
                 default:
                     habitacoes = habitacoes.OrderBy(h => h.Preco);
-                    habitacoes = habitacoes.OrderBy(h => h.Avaliacao);
                     break;
             }
 

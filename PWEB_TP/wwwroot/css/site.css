@@ -16,3 +16,18 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+.sort-link {
+    text-decoration: none;
+    color: #333; /* Cor do texto normal */
+    font-weight: bold;
+}
+
+    .sort-link:hover {
+        text-decoration: underline;
+    }
+
+.sort-icon {
+    margin-left: 5px; /* Espaçamento entre o texto e o ícone (ajuste conforme necessário) */
+}
