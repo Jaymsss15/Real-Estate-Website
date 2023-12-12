@@ -5,7 +5,7 @@ using PWEB_TP.Models;
 
 namespace PWEB_TP.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -13,7 +13,6 @@ namespace PWEB_TP.Data
         }
 
         public DbSet<Habitacoes> Habitacoes { get; set; }
-        public DbSet<ApplicationUser> ApplicationUser{ get; set; }
 
     }
 }

@@ -1,0 +1,36 @@
+﻿@model PWEB_TP.ViewModels.UserRolesViewModel
+
+
+<h2>User Roles Details</h2>
+
+<div>
+    <h4>User Information</h4>
+    <dl class="row">
+        <dt class="col-sm-2">First Name</dt>
+        <dd class="col-sm-10">@Model.PrimeiroNome</dd>
+
+        <dt class="col-sm-2">Last Name</dt>
+        <dd class="col-sm-10">@Model.UltimoNome</dd>
+
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.UserName</dd>
+
+        <dt class="col-sm-2">Roles</dt>
+        <dd class="col-sm-10">@string.Join(", ", Model.Roles)</dd>
+    </dl>
+</div>
+
+<div>
+    <h4>Manage Roles</h4>
+    <form asp-action="Details" method="post">
+        @foreach (var role in Model.Roles)
+        {
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="model[@role].RoleName" checked />
+                <label class="form-check-label">@role</label>
+            </div>
+        }
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>

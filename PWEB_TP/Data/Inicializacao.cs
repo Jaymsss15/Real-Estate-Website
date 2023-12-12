@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using TP_PWEB.Models;
-using System;
 using PWEB_TP.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace TP_PWEB.Data
 {
@@ -17,7 +18,7 @@ namespace TP_PWEB.Data
         public static async Task CriaDadosIniciais(UserManager<ApplicationUser>
        userManager, RoleManager<IdentityRole> roleManager)
         {
-            //Adicionar default Roles
+            //Adicionar default Roles 
             await roleManager.CreateAsync(new IdentityRole(Roles.Admin.ToString()));
             await roleManager.CreateAsync(new IdentityRole(Roles.Gestor.ToString()));
             await roleManager.CreateAsync(new IdentityRole(Roles.Funcionario.ToString()));
@@ -42,3 +43,4 @@ namespace TP_PWEB.Data
         }
     }
 }
+
