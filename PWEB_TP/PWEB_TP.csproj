@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Content Remove="Views\Procurar.cshtml" />
+    <Content Remove="Views\Shared\QuickSearchPartial.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

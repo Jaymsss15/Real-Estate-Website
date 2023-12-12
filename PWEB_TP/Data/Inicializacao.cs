@@ -15,32 +15,55 @@ namespace TP_PWEB.Data
     }
     public static class Inicializacao
     {
-        public static async Task CriaDadosIniciais(UserManager<ApplicationUser>
-       userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task CriaDadosIniciais(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
-            //Adicionar default Roles 
-            await roleManager.CreateAsync(new IdentityRole(Roles.Admin.ToString()));
-            await roleManager.CreateAsync(new IdentityRole(Roles.Gestor.ToString()));
-            await roleManager.CreateAsync(new IdentityRole(Roles.Funcionario.ToString()));
-            await roleManager.CreateAsync(new IdentityRole(Roles.Cliente.ToString()));
-            //Adicionar Default User - Admin
-            var defaultUser = new ApplicationUser
+            // Adicionar default Roles
+            await CriarRoleSeNaoExistir(roleManager, Roles.Admin.ToString());
+            await CriarRoleSeNaoExistir(roleManager, Roles.Gestor.ToString());
+            await CriarRoleSeNaoExistir(roleManager, Roles.Funcionario.ToString());
+            await CriarRoleSeNaoExistir(roleManager, Roles.Cliente.ToString());
+
+            // Adicionar Default User - Admin
+            await CriarUsuarioSeNaoExistir(userManager, "admin@localhost.com", "Is3C..00", "Administrador", "Local", Roles.Admin);
+
+            // Adicionar Default User - Gestor
+            await CriarUsuarioSeNaoExistir(userManager, "gestor@localhost.com", "Is3C..01", "Gestor", "Local", Roles.Gestor);
+
+            // Adicionar Default User - Funcionario
+            await CriarUsuarioSeNaoExistir(userManager, "funcionario@localhost.com", "Is3C..02", "Funcionario", "Local", Roles.Funcionario);
+
+            // Adicionar Default User - Cliente
+            await CriarUsuarioSeNaoExistir(userManager, "cliente@localhost.com", "Is3C..03", "Cliente", "Local", Roles.Cliente);
+        }
+
+        private static async Task CriarRoleSeNaoExistir(RoleManager<IdentityRole> roleManager, string roleName)
+        {
+            if (!await roleManager.RoleExistsAsync(roleName))
             {
-                UserName = "admin@localhost.com",
-                Email = "admin@localhost.com",
-                PrimeiroNome = "Administrador",
-                UltimoNome = "Local",
-                EmailConfirmed = true,
-                PhoneNumberConfirmed = true
-            };
-            var user = await userManager.FindByEmailAsync(defaultUser.Email);
-            if (user == null)
-            {
-                await userManager.CreateAsync(defaultUser, "Is3C..00");
-                await userManager.AddToRoleAsync(defaultUser,
-                Roles.Admin.ToString());
+                await roleManager.CreateAsync(new IdentityRole(roleName));
             }
         }
+
+        private static async Task CriarUsuarioSeNaoExistir(UserManager<ApplicationUser> userManager, string email, string senha, string primeiroNome, string ultimoNome, Roles role)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                var novoUsuario = new ApplicationUser
+                {
+                    UserName = email,
+                    Email = email,
+                    PrimeiroNome = primeiroNome,
+                    UltimoNome = ultimoNome,
+                    EmailConfirmed = true,
+                    PhoneNumberConfirmed = true
+                };
+
+                await userManager.CreateAsync(novoUsuario, senha);
+                await userManager.AddToRoleAsync(novoUsuario, role.ToString());
+            }
+        }
+
     }
 }
 
