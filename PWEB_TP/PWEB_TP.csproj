@@ -8,6 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Arrendamentos\**" />
+    <Content Remove="Views\Arrendamentos\**" />
+    <EmbeddedResource Remove="Views\Arrendamentos\**" />
+    <None Remove="Views\Arrendamentos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\Arrendamentos.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Procurar.cshtml" />
   </ItemGroup>
 

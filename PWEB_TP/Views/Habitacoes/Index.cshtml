@@ -19,7 +19,17 @@
                 @Html.DisplayNameFor(model => model.Tipo)
             </th>
             <th>
-                Preço
+                    <a href="#" class="sort-link" data-sort="asc">
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["PrecoSortParm"]">@Html.DisplayNameFor(model => model.Preco)</a>
+                    @if (ViewData["PrecoSortParm"].ToString() == "preco_desc")
+                    {
+                        <span class="sort-icon">&#9660;</span> <!-- Seta para baixo indicando ordem decrescente -->
+                    }
+                    else if (ViewData["PrecoSortParm"].ToString() == "preco_asc")
+                    {
+                        <span class="sort-icon">&#9650;</span> <!-- Seta para cima indicando ordem crescente -->
+                    }
+                </a>
             </th>
             <th>
                 Disponível
@@ -34,7 +44,17 @@
                 @Html.DisplayNameFor(model => model.Locador)
             </th>
             <th>
-                Avaliação
+                                <a href="#" class="sort-link" data-sort="asc">
+                    <a asp-action="Index" asp-route-sortOrder="@ViewData["AvaliacaoSortParm"]">@Html.DisplayNameFor(model => model.Avaliacao)</a>
+                    @if (ViewData["AvaliacaoSortParm"].ToString() == "avaliacao_desc")
+                    {
+                        <span class="sort-icon">&#9660;</span> <!-- Seta para baixo indicando ordem decrescente -->
+                    }
+                    else if (ViewData["AvaliacaoSortParm"].ToString() == "avaliacao_asc")
+                    {
+                        <span class="sort-icon">&#9650;</span> <!-- Seta para cima indicando ordem crescente -->
+                    }
+                </a>
             </th>
 
         </tr>

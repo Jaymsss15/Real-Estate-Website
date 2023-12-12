@@ -23,11 +23,40 @@ namespace PWEB_TP.Controllers
 
         // GET: Habitacoes
         [Authorize]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-              return _context.Habitacoes != null ? 
-                          View(await _context.Habitacoes.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Habitacoes'  is null.");
+
+            var habitacoes = _context.Habitacoes.AsQueryable();
+
+            ViewData["PrecoSortParm"] = sortOrder == "preco_desc" ? "preco_asc" : "preco_desc";
+            ViewData["AvaliacaoSortParm"] = sortOrder == "avaliacao_desc" ? "avaliacao_asc" : "avaliacao_desc";
+            habitacoes = from h in _context.Habitacoes
+                         select h;
+
+            switch (sortOrder)
+            {
+                case "preco_desc":
+                    habitacoes = habitacoes.OrderByDescending(h => h.Preco);
+                    break;
+                case "preco_asc":
+                    habitacoes = habitacoes.OrderBy(h => h.Preco);
+                    break;
+                case "avaliacao_desc":
+                    habitacoes = habitacoes.OrderByDescending(h => h.Avaliacao);
+                    break;
+                case "avaliacao_asc":
+                    habitacoes = habitacoes.OrderBy(h => h.Avaliacao);
+                    break;
+                default:
+                    habitacoes = habitacoes.OrderBy(h => h.Preco);
+                    break;
+            }
+
+
+            var habitacoesList = await habitacoes.ToListAsync();
+
+
+            return View("Index", habitacoesList);
         }
 
         // GET: Habitacoes/Procurar
@@ -40,7 +69,7 @@ namespace PWEB_TP.Controllers
             return View();
         }
         // GET: Habitacoes/Resultados
-        public async Task<IActionResult> Resultados(String localizacao,string tipo, string tipo2, string locador, string sortOrder)
+        public async Task<IActionResult> ResultadosDefault(String localizacao,string tipo, string tipo2, string locador, string sortOrder)
         {
             //tipo É o tipo de Habitacao definida no ProcurarHab
             //tipo2 É o tipo de Habitacao definida no Filtrar
@@ -99,8 +128,8 @@ namespace PWEB_TP.Controllers
 
 
 
-        // GET: Habitacoes/Details/5
-        public async Task<IActionResult> Details(int? id)
+            // GET: Habitacoes/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Habitacoes == null)
             {
@@ -187,6 +216,24 @@ namespace PWEB_TP.Controllers
             if (id != habitacoes.IdHabitacoes)
             {
                 return NotFound();
+            }
+
+            // Adicione a validação para a avaliação estar no intervalo de 0 a 10
+            if (habitacoes.Avaliacao < 0 || habitacoes.Avaliacao > 10)
+            {
+                ModelState.AddModelError("Avaliacao", "A avaliação deve estar no intervalo de 0 a 10.");
+            }
+
+            if (string.IsNullOrWhiteSpace(habitacoes.Tipo))
+            {
+                ModelState.AddModelError("Tipo", "The Tipo field is required");
+            }
+
+
+            // Verifique se o Locador está vazio e, se estiver, defina Avaliacao como vazio
+            if (string.IsNullOrWhiteSpace(habitacoes.Locador))
+            {
+                habitacoes.Avaliacao = 0; // Ou outro valor que indique "vazio"
             }
 
             if (ModelState.IsValid)

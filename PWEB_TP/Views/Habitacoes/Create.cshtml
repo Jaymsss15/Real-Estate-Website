@@ -18,9 +18,14 @@
                 <span asp-validation-for="Localizacao" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Tipo" class="control-label"></label>
-                <input asp-for="Tipo" class="form-control" />
-                <span asp-validation-for="Tipo" class="text-danger"></span>
+                <label asp-for="Tipo" class="control-label">Tipo de Habitação:</label>
+                <select asp-for="Tipo" class="form-control">
+                    <option value="">Selecionar...</option>
+                    <option value="Apartamento">Apartamento</option>
+                    <option value="Vivenda">Vivenda</option>
+                    <option value="Moradia Isolada">Moradia Isolada</option>
+                    <option value="Moradia Geminada">Moradia Geminada</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Preco" class="control-label"></label>
