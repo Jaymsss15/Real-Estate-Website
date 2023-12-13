@@ -1,10 +1,10 @@
 ﻿@model TP_PWEB.Models.Habitacoes
 
 @{
-    ViewData["Title"] = "DetailsDefault";
+    ViewData["Title"] = "Arrendar";
 }
 
-<h1>Detalhes</h1>
+<h1>Arrendar</h1>
 
 <div>
     <hr />
@@ -14,7 +14,7 @@
         <dt class="col-sm-2">
             Disponivel
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Disponivel)
         </dd>
         <dt class="col-sm-2">
@@ -38,5 +38,10 @@
     </dl>
 </div>
 <div>
-    <a asp-action="ResultadosDefault">Voltar</a>
+    <form asp-action="Arrendar" method="post">
+        <input type="hidden" name="id" value="@Model.IdHabitacoes" />
+        <button type="submit" class="btn btn-lg btn-outline-primary">Clique aqui para Arrendar</button>
+
+    </form>
+    <a asp-action="ResultadosDefault">   Voltar</a>
 </div>

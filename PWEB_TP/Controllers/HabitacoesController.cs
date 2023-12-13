@@ -68,6 +68,22 @@ namespace PWEB_TP.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> Arrendar(int? id)
+        {
+            if (id == null || _context.Habitacoes == null)
+            {
+                return NotFound();
+            }
+
+            var habitacoes = await _context.Habitacoes
+                .FirstOrDefaultAsync(m => m.IdHabitacoes == id);
+            if (habitacoes == null)
+            {
+                return NotFound();
+            }
+
+            return View(habitacoes);
+        }
         // GET: Habitacoes/Resultados
         public async Task<IActionResult> ResultadosDefault(String localizacao,string tipo, string tipo2, string locador, string sortOrder)
         {

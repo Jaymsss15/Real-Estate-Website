@@ -22,7 +22,9 @@ namespace TP_PWEB.Models
 
         public string? Locador { get; set; }
 
-        public int Avaliacao { get; set; }      //Avalicao do Locador de 0 a 10
+        public int Avaliacao { get; set; }
+        
+        //Avalicao do Locador de 0 a 10
 
         //----Falta Periodo Min e Maximo de Arrendamento----
 

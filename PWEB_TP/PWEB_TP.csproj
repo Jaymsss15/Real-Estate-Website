@@ -15,7 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Models\Arrendamentos.cs" />
+    <Compile Remove="Controllers\ArrendamentosController.cs" />
+    <Compile Remove="Data\Migrations\20231213120926_Arrendamentos.cs" />
+    <Compile Remove="Data\Migrations\20231213120926_Arrendamentos.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

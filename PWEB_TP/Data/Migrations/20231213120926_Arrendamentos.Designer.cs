@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PWEB_TP.Data;
 
@@ -11,9 +12,10 @@ using PWEB_TP.Data;
 namespace PWEB_TP.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231213120926_Arrendamentos")]
+    partial class Arrendamentos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,7 +240,7 @@ namespace PWEB_TP.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("PWEB_TP.Models.Arrendamento", b =>
+            modelBuilder.Entity("PWEB_TP.Models.Arrendamentos", b =>
                 {
                     b.Property<int>("IdArrendamentos")
                         .ValueGeneratedOnAdd()
@@ -270,7 +272,7 @@ namespace PWEB_TP.Data.Migrations
 
                     b.HasIndex("HabitacaoIdHabitacoes");
 
-                    b.ToTable("Arrendamento");
+                    b.ToTable("Arrendamentos");
                 });
 
             modelBuilder.Entity("PWEB_TP.Models.Locadores", b =>
@@ -388,7 +390,7 @@ namespace PWEB_TP.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PWEB_TP.Models.Arrendamento", b =>
+            modelBuilder.Entity("PWEB_TP.Models.Arrendamentos", b =>
                 {
                     b.HasOne("PWEB_TP.Models.ApplicationUser", "Cliente")
                         .WithMany()

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PWEB_TP.Models.Locadores>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Locadores</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeLocador)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoSubscricao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeLocador)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoSubscricao)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdLocadores">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdLocadores">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdLocadores">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

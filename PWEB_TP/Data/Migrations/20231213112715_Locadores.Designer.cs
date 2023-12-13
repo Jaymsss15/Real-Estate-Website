@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PWEB_TP.Data;
 
@@ -11,9 +12,10 @@ using PWEB_TP.Data;
 namespace PWEB_TP.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231213112715_Locadores")]
+    partial class Locadores
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,41 +240,6 @@ namespace PWEB_TP.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("PWEB_TP.Models.Arrendamento", b =>
-                {
-                    b.Property<int>("IdArrendamentos")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdArrendamentos"), 1L, 1);
-
-                    b.Property<string>("ClienteId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("DataFim")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DataInicio")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("HabitacaoIdHabitacoes")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PeridoMinimoArrendamento")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ValorArrendamento")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdArrendamentos");
-
-                    b.HasIndex("ClienteId");
-
-                    b.HasIndex("HabitacaoIdHabitacoes");
-
-                    b.ToTable("Arrendamento");
-                });
-
             modelBuilder.Entity("PWEB_TP.Models.Locadores", b =>
                 {
                     b.Property<int>("IdLocadores")
@@ -386,23 +353,6 @@ namespace PWEB_TP.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("PWEB_TP.Models.Arrendamento", b =>
-                {
-                    b.HasOne("PWEB_TP.Models.ApplicationUser", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteId");
-
-                    b.HasOne("TP_PWEB.Models.Habitacoes", "Habitacao")
-                        .WithMany()
-                        .HasForeignKey("HabitacaoIdHabitacoes")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cliente");
-
-                    b.Navigation("Habitacao");
                 });
 
             modelBuilder.Entity("TP_PWEB.Models.Habitacoes", b =>

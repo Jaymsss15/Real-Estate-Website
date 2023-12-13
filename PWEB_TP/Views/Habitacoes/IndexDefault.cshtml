@@ -69,6 +69,7 @@
                     @Html.DisplayFor(modelItem => item.Avaliacao)
                 </td>
             <td>
+                    <a asp-action="Arrendar" asp-route-id="@item.IdHabitacoes">Arrendar</a>
                 <a asp-action="DetailsDefault" asp-route-id="@item.IdHabitacoes">Detalhes</a> 
             </td>
         </tr>

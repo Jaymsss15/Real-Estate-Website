@@ -13,13 +13,24 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ClienteId" class="control-label"></label>
-                <select asp-for="ClienteId" class ="form-control" asp-items="ViewBag.ClienteId"></select>
+                <label asp-for="DataInicio" class="control-label"></label>
+                <input asp-for="DataInicio" class="form-control" />
+                <span asp-validation-for="DataInicio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="HabitacoesIdHabitacoes" class="control-label"></label>
-                <input asp-for="HabitacoesIdHabitacoes" class="form-control" />
-                <span asp-validation-for="HabitacoesIdHabitacoes" class="text-danger" asp-items="ViewBag.IdHabitacoes"></span>
+                <label asp-for="DataFim" class="control-label"></label>
+                <input asp-for="DataFim" class="form-control" />
+                <span asp-validation-for="DataFim" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PeridoMinimoArrendamento" class="control-label"></label>
+                <input asp-for="PeridoMinimoArrendamento" class="form-control" />
+                <span asp-validation-for="PeridoMinimoArrendamento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValorArrendamento" class="control-label"></label>
+                <input asp-for="ValorArrendamento" class="form-control" />
+                <span asp-validation-for="ValorArrendamento" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
