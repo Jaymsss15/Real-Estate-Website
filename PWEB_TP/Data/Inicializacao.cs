@@ -3,6 +3,7 @@ using TP_PWEB.Models;
 using PWEB_TP.Models;
 using System;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace TP_PWEB.Data
 {
@@ -24,7 +25,7 @@ namespace TP_PWEB.Data
             await CriarRoleSeNaoExistir(roleManager, Roles.Cliente.ToString());
 
             // Adicionar Default User - Admin
-            await CriarUsuarioSeNaoExistir(userManager, "admin@localhost.com", "Is3C..00", "Administrador", "Local", Roles.Admin);
+            await CriarUsuarioSeNaoExistir(userManager, "admin@localhost.com", "Is3C..00", "Administrador", "Local", Roles.Admin, Roles.Gestor);
 
             // Adicionar Default User - Gestor
             await CriarUsuarioSeNaoExistir(userManager, "gestor@localhost.com", "Is3C..01", "Gestor", "Local", Roles.Gestor);
@@ -44,7 +45,7 @@ namespace TP_PWEB.Data
             }
         }
 
-        private static async Task CriarUsuarioSeNaoExistir(UserManager<ApplicationUser> userManager, string email, string senha, string primeiroNome, string ultimoNome, Roles role)
+        private static async Task CriarUsuarioSeNaoExistir(UserManager<ApplicationUser> userManager, string email, string senha, string primeiroNome, string ultimoNome, params Roles[] roles)
         {
             var user = await userManager.FindByEmailAsync(email);
             if (user == null)
@@ -60,7 +61,11 @@ namespace TP_PWEB.Data
                 };
 
                 await userManager.CreateAsync(novoUsuario, senha);
-                await userManager.AddToRoleAsync(novoUsuario, role.ToString());
+                // Adiciona o usuário a cada uma das roles fornecidas
+                foreach (var role in roles)
+                {
+                    await userManager.AddToRoleAsync(novoUsuario, role.ToString());
+                }
             }
         }
 

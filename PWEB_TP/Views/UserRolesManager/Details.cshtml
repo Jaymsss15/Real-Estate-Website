@@ -1,15 +1,14 @@
 ﻿@model PWEB_TP.ViewModels.UserRolesViewModel
 
-
-<h2>User Roles Details</h2>
+<h2>Detalhes das Roles dos Utilizadores</h2>
 
 <div>
-    <h4>User Information</h4>
+    <h4>Informação dos Utilizadores</h4>
     <dl class="row">
-        <dt class="col-sm-2">First Name</dt>
+        <dt class="col-sm-2">Primeiro Nome</dt>
         <dd class="col-sm-10">@Model.PrimeiroNome</dd>
 
-        <dt class="col-sm-2">Last Name</dt>
+        <dt class="col-sm-2">Último Nome</dt>
         <dd class="col-sm-10">@Model.UltimoNome</dd>
 
         <dt class="col-sm-2">Email</dt>
@@ -21,16 +20,16 @@
 </div>
 
 <div>
-    <h4>Manage Roles</h4>
-    <form asp-action="Details" method="post">
+    <h4>Gerir Roles</h4>
+    <form asp-action="Details" asp-route-userId="@Model.UserId" method="post">
         @foreach (var role in Model.Roles)
         {
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" name="model[@role].RoleName" checked />
+                <input type="checkbox" class="form-check-input" name="selectedRoles" value="@role" checked />
                 <label class="form-check-label">@role</label>
             </div>
         }
 
-        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <button type="submit" class="btn btn-primary">Guardar Alterações</button>
     </form>
 </div>

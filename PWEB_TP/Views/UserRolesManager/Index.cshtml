@@ -1,15 +1,20 @@
 ﻿@model List<PWEB_TP.ViewModels.UserRolesViewModel>
 
-<h2>User Roles Index</h2>
+<h2>Roles dos Utilizadores</h2>
+<p>
+    <a asp-action="Index" asp-controller="RoleManager">Criar nova Role</a>
+</p>
+
+
 
 <table class="table">
     <thead>
         <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Primeiro Nome</th>
+            <th>Último Nome</th>
             <th>Email</th>
             <th>Roles</th>
-            <th>Manage Roles</th>
+            <th>Gerir Roles</th>
         </tr>
     </thead>
     <tbody>
@@ -21,8 +26,8 @@
         <td>@user.UserName</td>
         <td>@string.Join(", ", user.Roles)</td>
         <td>
-                    <a asp-controller="UserRolesManager" asp-action="Details" asp-route-id="@user.UserId">
-                <button type="button" class="w-100 btn btn-lg btn-outline-primary">Manage Roles</button>
+                    <a asp-controller="UserRolesManager" asp-action="Details" asp-route-userId="@user.UserId">
+                <button type="button" class="w-100 btn btn-lg btn-outline-primary">Gerir Roles</button>
             </a>
         </td>
     </tr>
