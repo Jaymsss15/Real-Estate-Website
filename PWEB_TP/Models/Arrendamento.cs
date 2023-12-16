@@ -7,9 +7,6 @@ namespace PWEB_TP.Models
     {
         [Key]
         public int IdArrendamentos { get; set; }
-        public ApplicationUser Cliente { get; set; }
-
-        public Habitacoes Habitacao { get; set; }
 
         public DateTime DataInicio { get; set; }
         public DateTime DataFim { get; set; }

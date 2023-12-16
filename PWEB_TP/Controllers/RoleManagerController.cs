@@ -70,5 +70,3 @@ public class RoleManagerController : Controller
 
 
 }
-
-

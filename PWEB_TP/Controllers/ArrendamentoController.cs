@@ -21,51 +21,7 @@ namespace PWEB_TP.Controllers
             _context = context;
         }
 
-        //Arrendar
-        [HttpPost]
-        public IActionResult Arrendar(int id)
-        {
-            // Lógica para adicionar o arrendamento à tabela de Arrendamento
-            // Certifique-se de ajustar isso conforme a estrutura real do seu aplicativo.
-
-            var habitacao = _context.Habitacoes.Find(id);
-            var cliente = _context.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
-            var periodoMinimoArrendamento = 60;
-            var dataInicio = DateTime.Now;
-            var dataFim = dataInicio.AddDays(periodoMinimoArrendamento);
-            var valorArrendamento = habitacao.Preco - (habitacao.Preco * 0.95);
-            
-
-            if (habitacao != null && cliente != null)
-            {
-                var arrendamento = new Arrendamento
-                {
-                    // Configure outras propriedades do arrendamento, se necessário
-                    Habitacao = habitacao,
-                    Cliente = cliente,
-                    PeridoMinimoArrendamento = periodoMinimoArrendamento,
-                    DataInicio = dataInicio,
-                    DataFim = dataFim,
-                    ValorArrendamento = (int)valorArrendamento,
-                    // Adicione outras propriedades conforme necessário
-                };
-
-                _context.Arrendamento.Add(arrendamento);
-                _context.SaveChanges();
-
-                return RedirectToAction("Index", "Arrendamento");
-            }
-            else
-            {
-                // Habitacao não encontrada ou Cliente não encontrado, trate conforme necessário
-                return RedirectToAction("ResultadosDefault");
-            }
-        }
-
-
-
-
-
+       
         // GET: Arrendamento
         public async Task<IActionResult> Index()
         {
@@ -107,29 +63,9 @@ namespace PWEB_TP.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Verificar se o Cliente com o nome fornecido existe
-                var cliente = await _context.Users.FirstOrDefaultAsync(u => u.PrimeiroNome == arrendamento.Cliente.PrimeiroNome);
-
-                if (cliente != null)
-                {
-                    // Cliente encontrado, atribua o ID ao arrendamento
-                    arrendamento.Cliente.Id = cliente.Id;
-
-                    // Certifique-se de que as propriedades obrigatórias estão preenchidas
-                    if (arrendamento.Habitacao == null)
-                    {
-                        ModelState.AddModelError(string.Empty, "Habitacao é obrigatória.");
-                        return View(arrendamento);
-                    }
-
-                    _context.Add(arrendamento);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    ModelState.AddModelError("Cliente.UserName", "Cliente não encontrado.");
-                }
+                _context.Add(arrendamento);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
             return View(arrendamento);
         }

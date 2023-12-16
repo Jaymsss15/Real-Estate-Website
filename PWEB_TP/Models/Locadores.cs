@@ -10,11 +10,8 @@ namespace PWEB_TP.Models
         public int IdLocadores { get; set; }
         public string NomeLocador { get; set; }
 
-        [Display(Name = "Estado da Subscrição", Prompt = "Introduza o Estado da Subscrição", Description = "Descrição do Estado da Subscrição")]
         public string EstadoSubscricao { get; set; }
 
        // public string? Disponivel { get; set; }
-
-        public ICollection<Habitacoes> Habitacoes { get; set; }
     }
 }

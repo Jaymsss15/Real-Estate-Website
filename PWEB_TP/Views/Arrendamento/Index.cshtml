@@ -13,9 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Cliente.UserName)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.DataInicio)
             </th>
             <th>
@@ -31,9 +28,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cliente.UserName)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DataInicio)
                 </td>

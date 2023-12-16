@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PWEB_TP.Models;
 using PWEB_TP.ViewModels;
+using TP_PWEB.Data;
 
 public class UserRolesManagerController : Controller
 {
@@ -93,5 +94,45 @@ public class UserRolesManagerController : Controller
             ModelState.AddModelError(string.Empty, "Failed to update user roles");
             return View(model);
         }
+    }
+
+    [HttpGet]
+    public IActionResult CriaUtilizador()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CriaUtilizador(RegisterViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var user = new ApplicationUser
+            {
+                UserName = model.Email,
+                Email = model.Email,
+                PrimeiroNome = model.PrimeiroNome,
+                UltimoNome = model.UltimoNome,
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(user, model.Senha);
+
+            if (result.Succeeded)
+            {
+                // Adicionar o usuário à role especificada
+                await _userManager.AddToRoleAsync(user, model.Role);
+
+                return RedirectToAction("Index");
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
+
+        return View(model);
     }
 }
