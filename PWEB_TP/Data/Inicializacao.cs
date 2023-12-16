@@ -23,7 +23,7 @@ namespace TP_PWEB.Data
             await CriarRoleSeNaoExistir(roleManager, Roles.Gestor.ToString());
             await CriarRoleSeNaoExistir(roleManager, Roles.Funcionario.ToString());
             await CriarRoleSeNaoExistir(roleManager, Roles.Cliente.ToString());
-
+    
             // Adicionar Default User - Admin
             await CriarUsuarioSeNaoExistir(userManager, "admin@localhost.com", "Is3C..00", "Administrador", "Local", Roles.Admin, Roles.Gestor);
 

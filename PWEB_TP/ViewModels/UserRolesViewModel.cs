@@ -6,6 +6,7 @@
         public string PrimeiroNome { get; set; }
         public string UltimoNome { get; set; }
         public string UserName { get; set; }
-        public IEnumerable<string> Roles { get; set; }
+        public IEnumerable<string> Roles { get; set; } = new List<string>();
+        public List<string> AvailableRoles { get; set; } = new List<string>();
     }
 }

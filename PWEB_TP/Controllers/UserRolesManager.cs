@@ -56,6 +56,7 @@ public class UserRolesManagerController : Controller
         }
 
         var roles = await GetUserRoles(user);
+        var allRoles = await _roleManager.Roles.Select(r => r.Name).ToListAsync();
 
         var model = new UserRolesViewModel
         {
@@ -63,37 +64,43 @@ public class UserRolesManagerController : Controller
             PrimeiroNome = user.PrimeiroNome,
             UltimoNome = user.UltimoNome,
             UserName = user.UserName,
-            Roles = roles
+            Roles = roles,
+            AvailableRoles = allRoles
         };
 
         return View(model);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Details(List<ManageUserRolesViewModel> model,
-   string userId)
+    public async Task<IActionResult> Details(UserRolesViewModel model)
     {
-        var user = await _userManager.FindByIdAsync(userId);
-
-        if (user == null)
+        if (model == null || string.IsNullOrEmpty(model.UserId))
         {
-
             return NotFound();
         }
 
-        var selectedRoles = model.Where(r => r.Selected).Select(r => r.RoleName).ToList();
+        var user = await _userManager.FindByIdAsync(model.UserId);
 
-        var result = await _userManager.AddToRolesAsync(user, selectedRoles);
+        if (user == null)
+        {
+            return NotFound();
+        }
 
-        if (result.Succeeded)
-        {
-            return RedirectToAction("Index");
-        }
-        else
-        {
-            ModelState.AddModelError(string.Empty, "Failed to update user roles");
-            return View(model);
-        }
+        // Retrieve the selected roles from the form
+        var selectedRoles = Request.Form["selectedRoles"].ToList();
+
+        // Get the user's current roles
+        var existingRoles = await _userManager.GetRolesAsync(user);
+
+        // Add the new roles
+        var rolesToAdd = selectedRoles.Except(existingRoles);
+        await _userManager.AddToRolesAsync(user, rolesToAdd);
+
+        // Remove the old roles
+        var rolesToRemove = existingRoles.Except(selectedRoles);
+        await _userManager.RemoveFromRolesAsync(user, rolesToRemove);
+
+        return RedirectToAction("Index");
     }
 
     [HttpGet]
@@ -134,5 +141,52 @@ public class UserRolesManagerController : Controller
         }
 
         return View(model);
+    }
+
+
+    public async Task<IActionResult> Delete(string userId)
+    {
+        if (userId == null)
+        {
+            return NotFound();
+        }
+
+        var user = await _userManager.FindByIdAsync(userId);
+
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        return View(user);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ConfirmarDelete(string userId)
+    {
+        if (userId == null)
+        {
+            return NotFound();
+        }
+
+        var user = await _userManager.FindByIdAsync(userId);
+
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        var result = await _userManager.DeleteAsync(user);
+
+        if (result.Succeeded)
+        {
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            // Lida com erros de exclusão, se necessário
+            ModelState.AddModelError(string.Empty, "Failed to delete user");
+            return View("Index");
+        }
     }
 }

@@ -1,0 +1,12 @@
+﻿@model ApplicationUser
+
+<h2>Confirmar Delete</h2>
+
+<p>Tem a certeza que quer apagar o Utilizador: @Model.UserName?</p>
+
+<form asp-action="ConfirmarDelete" asp-route-userId="@Model.Id" method="post">
+    <button type="submit" class="btn btn-danger">Apagar</button>
+    <a asp-action="Index">
+        <button type="button" class="btn btn-secondary">Cancelar</button>
+    </a>
+</form>
