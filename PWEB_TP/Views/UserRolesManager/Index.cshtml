@@ -1,12 +1,10 @@
 ﻿@model List<PWEB_TP.ViewModels.UserRolesViewModel>
-
-
+<br></br>
 <h2>Roles dos Utilizadores</h2>
 <p>
-    <a asp-action="Index" asp-controller="RoleManager">Criar nova Role</a>
-    <a asp-action="CriaUtilizador">Criar um Utilizador</a>
+    <a class="nav-link text-dark" asp-action="Index" asp-controller="RoleManager">Criar nova Role</a>
+    <a class="nav-link text-dark" asp-action="CriaUtilizador">Criar um Utilizador</a>
 </p>
-
 
 
 <table class="table">
@@ -31,6 +29,11 @@
                     <a asp-controller="UserRolesManager" asp-action="Details" asp-route-userId="@user.UserId">
                 <button type="button" class="w-100 btn btn-lg btn-outline-primary">Gerir Roles</button>
             </a>
+                <td>
+                    <a asp-action="Delete" asp-route-userId="@user.UserId">
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </a>
+                </td>
         </td>
     </tr>
 }

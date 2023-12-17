@@ -32,22 +32,6 @@ namespace PWEB_TP.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-
-            migrationBuilder.DropIndex(
-                name: "IX_Arrendamento_ClienteId",
-                table: "Arrendamento");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Arrendamento_HabitacaoIdHabitacoes",
-                table: "Arrendamento");
-
-            migrationBuilder.DropColumn(
-                name: "ClienteId",
-                table: "Arrendamento");
-
-            migrationBuilder.DropColumn(
-                name: "HabitacaoIdHabitacoes",
-                table: "Arrendamento");
         }
     }
 }

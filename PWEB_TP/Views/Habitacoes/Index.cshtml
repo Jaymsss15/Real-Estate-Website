@@ -3,11 +3,11 @@
 @{
     ViewData["Title"] = "IndexHab";
 }
-
+<br></br>
 <h1>Habitações</h1>
 
 <p>
-    <a asp-action="Create">Criar nova Habitação</a>
+    <a class="nav-link text-dark" asp-action="Create">Criar nova Habitação</a>
 </p>
 <table class="table">
     <thead>
@@ -20,7 +20,7 @@
             </th>
             <th>
                     <a href="#" class="sort-link" data-sort="asc">
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["PrecoSortParm"]">@Html.DisplayNameFor(model => model.Preco)</a>
+                    <a asp-action="Index" class="text-dark" asp-route-sortOrder="@ViewData["PrecoSortParm"]">@Html.DisplayNameFor(model => model.Preco)</a>
                     @if (ViewData["PrecoSortParm"].ToString() == "preco_desc")
                     {
                         <span class="sort-icon">&#9660;</span> <!-- Seta para baixo indicando ordem decrescente -->
@@ -45,7 +45,7 @@
             </th>
             <th>
                                 <a href="#" class="sort-link" data-sort="asc">
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["AvaliacaoSortParm"]">@Html.DisplayNameFor(model => model.Avaliacao)</a>
+                    <a asp-action="Index" class="text-dark" asp-route-sortOrder="@ViewData["AvaliacaoSortParm"]">@Html.DisplayNameFor(model => model.Avaliacao)</a>
                     @if (ViewData["AvaliacaoSortParm"].ToString() == "avaliacao_desc")
                     {
                         <span class="sort-icon">&#9660;</span> <!-- Seta para baixo indicando ordem decrescente -->

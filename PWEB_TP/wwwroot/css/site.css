@@ -31,3 +31,17 @@ body {
 .sort-icon {
     margin-left: 5px; /* Espaçamento entre o texto e o ícone (ajuste conforme necessário) */
 }
+
+.banner_01 {
+    background-image: url('/img/banner_01.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+.banner_06 {
+    background-image: url('/img/banner_06.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}

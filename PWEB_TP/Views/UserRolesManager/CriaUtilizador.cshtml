@@ -1,5 +1,6 @@
 ﻿@model PWEB_TP.ViewModels.RegisterViewModel
 
+<br></br>
 <h2>Criar Novo Utilizador</h2>
 
 <form asp-controller="UserRolesManager" asp-action="CriaUtilizador" method="post">
@@ -44,7 +45,7 @@
         </select>
         <span asp-validation-for="Role" class="text-danger"></span>
     </div>
-
+    <br></br>
     <button type="submit" class="btn btn-primary">Criar Utilizador</button>
 </form>
 

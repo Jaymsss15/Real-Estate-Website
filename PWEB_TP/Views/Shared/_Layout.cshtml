@@ -6,34 +6,37 @@
     <title>@ViewData["Title"] - PWEB_TP</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/carousel.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PWEB_TP.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HabitAqui</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Página Inicial</a>
-                        </li>
+    <div class="cover-container d-flex w-100 h-100 p-0 mx-auto flex-column">
+        <header class="p-7 text-white">
+            <div class="container">
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3
+fixed-top" style="background: rgba(0, 0, 0, .2);">
+                    <div class="container" >
+                        <a class="navbar-brand text-warning" href="#"><svg bootstrapicon="SignTurnRightFill" class="text-warning" width="48" height="48" arialabel="SignTurnRightFill"></svg> <strong>HabitAqui</strong></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
+aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Página Inicial</a>
+                                </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Habitacoes" asp-action="ProcurarHab">Procurar</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Habitacoes" asp-action="Index">Habitações</a>
+                                @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Funcionario") || User.IsInRole("Gestor")))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Habitacoes" asp-action="Index">Habitações</a>
+                                    </li>
+                                }
+
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">
-                                Política de Privacidade
-                            </a>
-                        </li>
-                        @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Cliente")))
+                                @if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Cliente") || User.IsInRole("Funcionario") || User.IsInRole("Gestor")))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Arrendamento" asp-action="Index">
@@ -49,9 +52,17 @@
                                 </a>
                             </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="UserRolesManager" asp-action="Index">Roles</a>
-                        </li>
+                                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin") || User.IsInRole("Gestor"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="UserRolesManager" asp-action="Index">Roles</a>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">
+                                        Política de Privacidade
+                                    </a>
+
 
                     </ul>
                     <partial name="_LoginPartial" />
@@ -67,7 +78,7 @@
     <footer class="border-top footer text-muted">
         <div class="container d-flex justify-content-between align-items-center">
             <span>&copy; HabitAqui 2023 Direitos Reservados</span>
-            <span><a asp-area="" asp-controller="Home" asp-action="Privacy">Política de Privacidade</a></span>
+                <span><a asp-area="" class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Política de Privacidade</a></span>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
